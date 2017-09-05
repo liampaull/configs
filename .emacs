@@ -27,8 +27,6 @@
  )
 ;;(server-start)
 (setq backup-directory-alist `(("." . "~/.saves")))
-(add-to-list 'load-path "/Users/lpaull/Code/moos-ivp_14.7.1/editor-modes")
-  (require 'moos-mode)
 
 (defun pbcopy ()
   (call-process-region (point) (mark) "pbcopy")
