@@ -10,6 +10,17 @@
 ;; installed packages.  Don't delete this line.  If you don't want it,
 ;; just comment it out by adding a semicolon to the start of the line.
 ;; You may delete these explanatory comments.
+(add-to-list 'load-path "~/.emacs.d/el-get/el-get")
+(unless (require 'el-get nil 'noerror)
+  (with-current-buffer
+      (url-retrieve-synchronously
+       "https://raw.githubusercontent.com/dimitri/el-get/master/el-get-install.el")
+    (goto-char (point-max))
+    (eval-print-last-sexp)))
+
+(add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
+(el-get 'sync)
+
 (package-initialize)
 
 (custom-set-variables
@@ -18,7 +29,9 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(inhibit-startup-screen t)
- '(package-selected-packages (quote (markdown-mode elpy))))
+ '(package-selected-packages
+   (quote
+    (yasnippet-bundle yasnippet-snippets markdown-mode elpy))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -26,9 +39,6 @@
  ;; If there is more than one, they won't work right.
  )
 ;;(server-start)
-(setq backup-directory-alist `(("." . "~/.saves")))
-(add-to-list 'load-path "/Users/lpaull/Code/moos-ivp_14.7.1/editor-modes")
-  (require 'moos-mode)
 
 (defun pbcopy ()
   (call-process-region (point) (mark) "pbcopy")
@@ -108,19 +118,12 @@
 ;; the default flyspell behaviour
 (put 'LeTex-mode 'flyspell-mode-predicate 'tex-mode-flyspell-verify)
 
-(add-to-list 'load-path "~/.emacs.d/el-get/el-get")
 
-(unless (require 'el-get nil 'noerror)
-  (with-current-buffer
-      (url-retrieve-synchronously
-       "https://raw.githubusercontent.com/dimitri/el-get/master/el-get-install.el")
-    (goto-char (point-max))
-    (eval-print-last-sexp)))
-
-(add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
-(el-get 'sync)
 
 (add-hook 'python-mode-hook 'jedi:setup)
 (setq jedi:complete-on-dot t) 
 
-
+(add-to-list 'load-path
+              "~/.emacs.d/snippets/yasnippet")
+(require 'yasnippet)
+(yas-global-mode 1)
