@@ -40,6 +40,8 @@
  )
 ;;(server-start)
 
+(setq backup-directory-alist `(("." . "~/.saves")))
+
 (defun pbcopy ()
   (call-process-region (point) (mark) "pbcopy")
   (setq deactivate-mark t))
